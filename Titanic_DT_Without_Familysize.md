@@ -1,4 +1,6 @@
 
+Two new datasets named **titanic_train** and **titanic_test** have been created using 2 respective csvs i.e. **titanic_train.csv** and **titanic_test.csv**
+
 
 ```python
 import pandas as pd
@@ -8,14 +10,12 @@ from sklearn import tree
 from sklearn import metrics
 import matplotlib.pyplot as plt
 %matplotlib inline
-```
 
-
-```python
 titanic_train = pd.read_csv('C:/Users/SaikatPC/Desktop/CSVFiles/titanic_train.csv')
 titanic_test = pd.read_csv('C:/Users/SaikatPC/Desktop/CSVFiles/titanic_test.csv')
 ```
 
+Columns **Name**, **Cabin**, and **Ticket** have been dropped from the **titanic_train** dataset and categorical values have been convereted into dummy variables as mentioned below.
 
 ```python
 titanic_train_name = titanic_train['Name']
@@ -27,23 +27,6 @@ titanic_train = pd.get_dummies(titanic_train)
 titanic_train.head(10)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -218,29 +201,21 @@ titanic_train.head(10)
 </div>
 
 
-
+The total number of rows in the **titanic_train** dataset is **891** and number of columns including **Survived** is 12.
 
 ```python
 titanic_train.shape
-```
-
-
-
 
     (891, 12)
+```
 
-
-
+Now, **titanic_train** dataset has been splited into 2 arrays i.e. **X and Y** where dataset **X** is consiting of below 11 features and **Y** is consisting of column **Survived**
 
 ```python
 Y = targets = labels = titanic_train['Survived'].values
 columns = ["Fare","Pclass","Sex_female","Sex_male","Embarked_C","Embarked_Q","Embarked_S", "Age", "SibSp", "Parch"]
 features = titanic_train[list(columns)].values
 features
-```
-
-
-
 
     array([[ 7.25  ,  3.    ,  0.    , ..., 22.    ,  1.    ,  0.    ],
            [71.2833,  1.    ,  1.    , ..., 38.    ,  1.    ,  0.    ],
@@ -250,17 +225,13 @@ features
            [30.    ,  1.    ,  0.    , ..., 26.    ,  0.    ,  0.    ],
            [ 7.75  ,  3.    ,  0.    , ..., 32.    ,  0.    ,  0.    ]])
 
-
-
+```
+Feature **Age** has **NaN** values and which is why **Imputer** function has been used in ordere to replace those **NaN** value with the mean value of **Age** column.
 
 ```python
 imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 X = imp.fit_transform(features)
 X
-```
-
-
-
 
     array([[ 7.25      ,  3.        ,  0.        , ..., 22.        ,
              1.        ,  0.        ],
@@ -275,9 +246,8 @@ X
              0.        ,  0.        ],
            [ 7.75      ,  3.        ,  0.        , ..., 32.        ,
              0.        ,  0.        ]])
-
-
-
+```
+Using decision tree claissifier decision tree been implemented on X and Y and the feature importance been estimaated.
 
 ```python
 my_tree_one = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
