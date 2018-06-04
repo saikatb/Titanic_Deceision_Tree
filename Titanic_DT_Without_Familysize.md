@@ -364,3 +364,5 @@ list(zip(columns,my_tree_one_nofare.feature_importances_))
 with open("titanic_withoutfamily.dot", 'w') as f:
     f = tree.export_graphviz(my_tree_one_nofare, out_file=f, feature_names=columns)
 ```
+
+![png](output_01.png)
