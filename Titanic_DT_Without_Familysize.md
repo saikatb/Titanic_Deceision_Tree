@@ -363,6 +363,7 @@ with open("titanic_withoutfamily.dot", 'w') as f:
 
 Below is the pictorial representation of the decision tree when we are eliminating **Fare** from the cocnsideration. 
 
-After analyzing the decision tree it can be conlucded that **Jack** was among those **unlucky 378** people who could not make it happen and **Rose** belonged to those **lucky 160**. But still they met as per the movie. Such is the irony of destiny and which is why **Jack** and **Rose** became a household name for the **Romance Lover**
 
 ![png](output_01.png)
+
+After analyzing the decision tree it can be conlucded that **Jack** was among those **unlucky 378 male** who could not make it happen and **Rose** belonged to those **lucky 160** who did manage to survive. But still they **Jack** and **Rose** met as per the movie. Such is the irony of destiny and which is why **Jack** and **Rose** became a household name for the romance lovers.
