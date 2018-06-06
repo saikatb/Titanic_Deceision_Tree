@@ -247,7 +247,7 @@ X
            [ 7.75      ,  3.        ,  0.        , ..., 32.        ,
              0.        ,  0.        ]])
 ```
-Using decision tree claissifier decision tree been implemented on X and Y and the feature importance been estimaated.
+Using decision tree claissifier *decision tree* algorithm has been implemented on X and Y and the feature importance has been estimaated.
 
 ```python
 my_tree_one = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
@@ -257,15 +257,12 @@ my_tree_one
 print(my_tree_one.feature_importances_)
 print(my_tree_one.score(X,Y))
 list(zip(columns,my_tree_one.feature_importances_))
-```
+
 
     [0.12330431 0.18665493 0.5670424  0.         0.         0.
      0.         0.09423074 0.02876762 0.        ]
     0.8226711560044894
     
-
-
-
 
     [('Fare', 0.1233043102754121),
      ('Pclass', 0.18665492885980678),
@@ -277,19 +274,19 @@ list(zip(columns,my_tree_one.feature_importances_))
      ('Age', 0.09423074090932518),
      ('SibSp', 0.02876762348064268),
      ('Parch', 0.0)]
+```
+From the above output of the code we can see that the feature **Sex_female** as got a very high importance. On the other hand, we can see the other varialbles appearing in descending order i.e. **Pclass**, **Pclass**, **Age**,and **SibSp**. 
 
+Now, if we will look deeper, we will see that features **Fare** and **Pclass** are correlated.Its quite ovbious that we are going to have a higher **Pclass** if we can afford to pay highers **Fare**.
 
-
+In order to remove the interdependency, we can remove the **Fare** column from the features and will try to figure out the importance of the features.  
 
 ```python
-## Removing the Fare from the Model
+
 Y = targets = labels = titanic_train['Survived'].values
 columns = ["Pclass","Sex_female","Sex_male","Embarked_C","Embarked_Q","Embarked_S", "Age", "SibSp", "Parch"]
 features = titanic_train[list(columns)].values
 features
-```
-
-
 
 
     array([[ 3.,  0.,  1., ..., 22.,  1.,  0.],
@@ -300,16 +297,15 @@ features
            [ 1.,  0.,  1., ..., 26.,  0.,  0.],
            [ 3.,  0.,  1., ..., 32.,  0.,  0.]])
 
+```
 
-
+Using **Imputer** we can replace the **NaN** value with the average of the **Age** feature.
 
 ```python
 imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 X_nofare = imp.fit_transform(features)
 X_nofare
 ```
-
-
 
 
     array([[ 3.        ,  0.        ,  1.        , ..., 22.        ,
@@ -327,8 +323,6 @@ X_nofare
              0.        ,  0.        ]])
 
 
-
-
 ```python
 my_tree_one_nofare = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
 my_tree_one_nofare = my_tree_one_nofare.fit(X_nofare,Y)
@@ -337,15 +331,12 @@ my_tree_one_nofare
 print(my_tree_one_nofare.feature_importances_)
 print(my_tree_one_nofare.score(X_nofare,Y))
 list(zip(columns,my_tree_one_nofare.feature_importances_))
-```
+
 
     [0.26392436 0.60373749 0.         0.         0.         0.03242434
      0.09991381 0.         0.        ]
     0.8204264870931538
     
-
-
-
 
     [('Pclass', 0.2639243580124819),
      ('Sex_female', 0.6037374925961083),
@@ -357,12 +348,19 @@ list(zip(columns,my_tree_one_nofare.feature_importances_))
      ('SibSp', 0.0),
      ('Parch', 0.0)]
 
+```
 
+From the above output we can identify that after removing **Fare** column the importance of the feature **Sex_female** has got increased. 
 
+So it can be inferred that the guards in the titanic were giving more importance to the **female** at the time of rescue operation. AS per the movie "Titanic" directed by James Cameron clearly that was the case.   
 
 ```python
 with open("titanic_withoutfamily.dot", 'w') as f:
     f = tree.export_graphviz(my_tree_one_nofare, out_file=f, feature_names=columns)
 ```
+
+Below is the pictorial representation of the decision tree when we are eliminating **Fare** from the cocnsideration. 
+
+After analyzing the decision tree it can be conlucded that **Jack** was among those **unlucky 378** people who could not make it happen and **Rose** belonged to those **lucky 160**. But still they met as per the movie. Such is the irony of destiny and which is why **Jack** and **Rose** became a household name for the **Romance Lover**
 
 ![png](output_01.png)
