@@ -541,5 +541,5 @@ with open("titanic_with_Familysize.dot", 'w') as f:
 ```
 Below is the decision tree which can be derived from the above code snippet.
 
-![png](Decision_Tree_With_FamilySize_Ver1.png)
+![png](Decision_Tree_With_FamilySize_Ver1.PNG)
 
