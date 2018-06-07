@@ -1,5 +1,5 @@
 
-## Titanic ## : An Analysis using Decsion Tree  ##
+## Titanic : An Analysis using Decsion Tree ( Wihtout Family )  ##
 
 Two new datasets named **titanic_train** and **titanic_test** have been created using 2 respective csvs i.e. **titanic_train.csv** and **titanic_test.csv**
 
@@ -277,11 +277,13 @@ list(zip(columns,my_tree_one.feature_importances_))
      ('SibSp', 0.02876762348064268),
      ('Parch', 0.0)]
 ```
-From the above output of the code we can see that the feature **Sex_female** as got a very high importance. On the other hand, we can see the other varialbles appearing in descending order i.e. **Pclass**, **Pclass**, **Age**,and **SibSp**. 
+From the above output of the code we can see that the feature **Sex_female** has high weaightage as compared to other features. On the other hand, we can see the importance of other features are appearing in descending order i.e. **Pclass**, **Pclass**, **Age**,and **SibSp**. 
 
 Now, if we will look deeper, we will see that features **Fare** and **Pclass** are correlated.Its quite ovbious that we are going to have a higher **Pclass** if we can afford to pay highers **Fare**.
 
-In order to remove the interdependency, we can remove the **Fare** column from the features and will try to figure out the importance of the features.  
+In order to remove the interdependency, we removed the **Fare** column from the features and tried to figure out the importance of the other features.  
+
+# Removing Fare Column #
 
 ```python
 
