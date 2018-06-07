@@ -539,3 +539,7 @@ From this fact we can also infer the fact that the **Guard** in the movie **Tita
 with open("titanic_with_Familysize.dot", 'w') as f:
     f = tree.export_graphviz(my_tree_one_nofare, out_file=f, feature_names=columns)
 ```
+Below is the decision tree which can be derived from the above code snippet.
+
+![png](Decision_Tree_With_FamilySize_Ver1.png)
+
