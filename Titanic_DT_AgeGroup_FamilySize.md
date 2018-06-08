@@ -1,4 +1,8 @@
 
+# Titanic : An Analysis using Decsion Tree ( Wihtout Family )
+
+Two new datasets named **titanic_train** and **titanic_test** have been created using 2 respective csvs i.e. **titanic_train.csv** and **titanic_test.csv**
+
 
 ```python
 import pandas as pd
@@ -17,24 +21,6 @@ titanic_test = pd.read_csv('E:/CSVFiles/Titanic/test.csv')
 ```python
 titanic_train.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -133,8 +119,7 @@ titanic_train.head()
 </table>
 </div>
 
-
-
+Calculating the **percentage of null values** in the **missing_data** dataframe. 
 
 ```python
 total = titanic_train.isnull().sum().sort_values(ascending=False)
@@ -143,23 +128,6 @@ missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])
 missing_data.head(20)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -234,14 +202,10 @@ missing_data.head(20)
 </div>
 
 
-
+It is seen that number of **Null** Values are **177** for **Age** and **687** for **Cabin** column 
 
 ```python
 titanic_train.isnull().sum()
-```
-
-
-
 
     PassengerId      0
     Survived         0
@@ -256,153 +220,33 @@ titanic_train.isnull().sum()
     Cabin          687
     Embarked         2
     dtype: int64
-
+```
 
 
 
 ```python
 titanic_train.columns[pd.isnull(titanic_train).sum() > 0].tolist()
+    ['Age', 'Cabin', 'Embarked']
 ```
 
-
-
-
-    ['Age', 'Cabin', 'Embarked']
-
-
-
+Creating a new column **Family_Size** for the data set **titanic_train**
 
 ```python
 titanic_train['Family_Size'] = titanic_train['SibSp'] + titanic_train['Parch'] + 1
+```
+Dropping the corresponding columns **Name**, **Cabin**, and **Ticket** from the dataframe **titanic_train**
 
-titanic_train_name = titanic_train['Name']
-
+```
 titanic_train.drop('Name',axis=1,inplace=True)
 titanic_train.drop('Cabin',axis=1,inplace=True)
 titanic_train.drop('Ticket',axis=1,inplace=True)
 ```
-
+The mean value of age is 29.69 years. So we will plan to replace those **NaN** values against column **Age** with **29**
 
 ```python
 titanic_train['Age'].mean()
-```
-
-
-
-
     29.69911764705882
-
-
-
-
-```python
-titanic_train.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PassengerId</th>
-      <th>Survived</th>
-      <th>Pclass</th>
-      <th>Sex</th>
-      <th>Age</th>
-      <th>SibSp</th>
-      <th>Parch</th>
-      <th>Fare</th>
-      <th>Embarked</th>
-      <th>Family_Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>0</td>
-      <td>3</td>
-      <td>male</td>
-      <td>22.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>7.2500</td>
-      <td>S</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>1</td>
-      <td>1</td>
-      <td>female</td>
-      <td>38.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>71.2833</td>
-      <td>C</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>1</td>
-      <td>3</td>
-      <td>female</td>
-      <td>26.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>7.9250</td>
-      <td>S</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>1</td>
-      <td>1</td>
-      <td>female</td>
-      <td>35.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>53.1000</td>
-      <td>S</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>0</td>
-      <td>3</td>
-      <td>male</td>
-      <td>35.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>8.0500</td>
-      <td>S</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 ```python
@@ -411,48 +255,9 @@ titanic_train['Age'].fillna(value=29, inplace=True)
 
 
 ```python
-titanic_train.isnull().sum()
-```
-
-
-
-
-    PassengerId    0
-    Survived       0
-    Pclass         0
-    Sex            0
-    Age            0
-    SibSp          0
-    Parch          0
-    Fare           0
-    Embarked       2
-    Family_Size    0
-    dtype: int64
-
-
-
-
-```python
 titanic_train.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -540,6 +345,13 @@ titanic_train.head()
 </div>
 
 
+A new function has been created called **Age_To_Groups** which will segragate the values of age into 5 main categories i.e.
+
+**1) Age < 12 --> Child**
+**2) 12 < Age < 19 --> Tenager**
+**3) 19 < Age < 30 --> Youth**
+**4) 30 < Age < 50 --> Middle_Aged**
+**5) 50 < Age < 100 --> Senior_Citizen**
 
 
 ```python
@@ -557,18 +369,14 @@ def Age_To_Groups(age):
         return 'Senior_Citizen'
 ```
 
+The function **Age_To_Groups** has been applied to the **Age** column in order to convert them into categorical values.
 
 ```python
 titanic_train['Age_Group'] = titanic_train['Age'].apply(Age_To_Groups)
 ```
 
-
 ```python
 titanic_train['Age_Group'].value_counts()
-```
-
-
-
 
     Youth             397
     Middle_Aged       231
@@ -576,152 +384,17 @@ titanic_train['Age_Group'].value_counts()
     Child              68
     Senior_Citizen     64
     Name: Age_Group, dtype: int64
-
-
-
-
-```python
-titanic_train.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PassengerId</th>
-      <th>Survived</th>
-      <th>Pclass</th>
-      <th>Sex</th>
-      <th>Age</th>
-      <th>SibSp</th>
-      <th>Parch</th>
-      <th>Fare</th>
-      <th>Embarked</th>
-      <th>Family_Size</th>
-      <th>Age_Group</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>0</td>
-      <td>3</td>
-      <td>male</td>
-      <td>22.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>7.2500</td>
-      <td>S</td>
-      <td>2</td>
-      <td>Youth</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>1</td>
-      <td>1</td>
-      <td>female</td>
-      <td>38.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>71.2833</td>
-      <td>C</td>
-      <td>2</td>
-      <td>Middle_Aged</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>1</td>
-      <td>3</td>
-      <td>female</td>
-      <td>26.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>7.9250</td>
-      <td>S</td>
-      <td>1</td>
-      <td>Youth</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>1</td>
-      <td>1</td>
-      <td>female</td>
-      <td>35.0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>53.1000</td>
-      <td>S</td>
-      <td>2</td>
-      <td>Middle_Aged</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>0</td>
-      <td>3</td>
-      <td>male</td>
-      <td>35.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>8.0500</td>
-      <td>S</td>
-      <td>1</td>
-      <td>Middle_Aged</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+After this all the categorical values been converted into dummy variables using **get_dummies** of titanic_train dataset
 
 ```python
 titanic_train = pd.get_dummies(titanic_train)
 ```
-
+Below is the dataset after the conversion
 
 ```python
 titanic_train.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -857,14 +530,10 @@ titanic_train.head()
 </div>
 
 
-
+Also we can see that there is no **NaN** values in the training dataset.
 
 ```python
 titanic_train.isnull().sum()
-```
-
-
-
 
     PassengerId                 0
     Survived                    0
@@ -885,9 +554,9 @@ titanic_train.isnull().sum()
     Age_Group_Tenager           0
     Age_Group_Youth             0
     dtype: int64
+```
 
-
-
+Dataset has been converted into X and Y arrays of features.
 
 ```python
 Y = targets = labels = titanic_train['Survived'].values
@@ -895,11 +564,6 @@ Y = targets = labels = titanic_train['Survived'].values
 columns = ["Fare","Pclass","Sex_female","Sex_male","Embarked_C","Embarked_Q","Embarked_S", "SibSp", "Parch","Family_Size","Age_Group_Child","Age_Group_Middle_Aged","Age_Group_Senior_Citizen","Age_Group_Tenager","Age_Group_Youth"]
 features = titanic_train[list(columns)].values
 features
-```
-
-
-
-
     array([[ 7.25  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
            [71.2833,  1.    ,  1.    , ...,  0.    ,  0.    ,  0.    ],
            [ 7.925 ,  3.    ,  1.    , ...,  0.    ,  0.    ,  1.    ],
@@ -908,17 +572,11 @@ features
            [30.    ,  1.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
            [ 7.75  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  0.    ]])
 
-
-
+```
 
 ```python
 X = features
 X
-```
-
-
-
-
     array([[ 7.25  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
            [71.2833,  1.    ,  1.    , ...,  0.    ,  0.    ,  0.    ],
            [ 7.925 ,  3.    ,  1.    , ...,  0.    ,  0.    ,  1.    ],
@@ -927,17 +585,13 @@ X
            [30.    ,  1.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
            [ 7.75  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  0.    ]])
 
-
+```
 
 
 ```python
 my_tree_one = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
 my_tree_one = my_tree_one.fit(X,Y)
 my_tree_one
-```
-
-
-
 
     DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=3,
                 max_features=None, max_leaf_nodes=None,
@@ -945,24 +599,17 @@ my_tree_one
                 min_samples_leaf=1, min_samples_split=2,
                 min_weight_fraction_leaf=0.0, presort=False, random_state=None,
                 splitter='best')
-
-
-
+```
 
 ```python
 print(my_tree_one.feature_importances_)
 print(my_tree_one.score(X,Y))
 list(zip(columns,my_tree_one.feature_importances_))
-```
 
     [0.07618531 0.1868736  0.         0.5677067  0.         0.
      0.         0.         0.         0.08384035 0.08539404 0.
      0.         0.         0.        ]
     0.8215488215488216
-    
-
-
-
 
     [('Fare', 0.07618531188617528),
      ('Pclass', 0.18687359962400962),
@@ -979,7 +626,7 @@ list(zip(columns,my_tree_one.feature_importances_))
      ('Age_Group_Senior_Citizen', 0.0),
      ('Age_Group_Tenager', 0.0),
      ('Age_Group_Youth', 0.0)]
-
+```
 
 
 
