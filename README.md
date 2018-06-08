@@ -4,5 +4,6 @@ In this Analysis, famous kaggle titanic dataset has been analyzed using **decisi
 
   1) Without **Family_Size** feature
   2) With **Family_Size** feature.
+  3) With **Family_Size** and **Age_Group** feature
   
 While doing analysis we ended up with 2 different conclusions about two different scenarios
