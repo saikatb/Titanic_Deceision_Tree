@@ -347,11 +347,11 @@ titanic_train.head()
 
 A new function has been created called **Age_To_Groups** which will segragate the values of age into 5 main categories i.e.
 
-**1) Age < 12 --> Child**
-**2) 12 < Age < 19 --> Tenager**
-**3) 19 < Age < 30 --> Youth**
-**4) 30 < Age < 50 --> Middle_Aged**
-**5) 50 < Age < 100 --> Senior_Citizen**
+1) **Age < 12 --> Child**
+2) **12 < Age < 19 --> Tenager**
+3) **19 < Age < 30 --> Youth**
+4) **30 < Age < 50 --> Middle_Aged**
+5) **50 < Age < 100 --> Senior_Citizen**
 
 
 ```python
