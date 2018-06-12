@@ -1,5 +1,5 @@
 
-# Titanic : An Analysis using Decsion Tree ( With Family )
+# Titanic : An Analysis using Decsion Tree ( With Family and Age Group)
 
 Two new datasets named **titanic_train** and **titanic_test** have been created using 2 respective csvs i.e. **titanic_train.csv** and **titanic_test.csv**
 
