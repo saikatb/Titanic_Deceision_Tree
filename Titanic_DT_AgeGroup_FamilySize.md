@@ -703,4 +703,4 @@ Below is the python code been used inorder to produce the graphviz data in doc f
 with open("titanic.dot", 'w') as f:
     f = tree.export_graphviz(my_tree_one, out_file=f, feature_names=columns)
 ```
-
+![png](Titanic_DT_AgeGroup_FamilySize.png)
