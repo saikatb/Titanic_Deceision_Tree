@@ -704,3 +704,9 @@ with open("titanic.dot", 'w') as f:
     f = tree.export_graphviz(my_tree_one, out_file=f, feature_names=columns)
 ```
 ![png](Titanic_DT_AgeGroup_FamilySize.png)
+
+After going through the above diagram it can be concluded that: 
+
+1) **Kate** belonged to those lucky **107 females** who **embarked from Southampton** and **belonged to 1st or 2nd Class**. As per the movie Kate also belonged to *1st Classs* and embarked from *Southampton*
+
+2) On the other hand, **Jack** belonged to those illfated **16 males** who were either from **2nd or 3rd** class. As per the movie **Jack** belonged to **3rd class**
