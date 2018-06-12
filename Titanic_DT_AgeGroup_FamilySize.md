@@ -247,11 +247,12 @@ The mean value of age is 29.69 years. So we will plan to replace those **NaN** v
 titanic_train['Age'].mean()
     29.69911764705882
 ```
-
+Replacing the missing value of column **Age** with the value **29** years.
 
 ```python
 titanic_train['Age'].fillna(value=29, inplace=True)
 ```
+
 
 
 ```python
@@ -572,9 +573,6 @@ features
            [30.    ,  1.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
            [ 7.75  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  0.    ]])
 
-```
-
-```python
 X = features
 X
     array([[ 7.25  ,  3.    ,  0.    , ...,  0.    ,  0.    ,  1.    ],
@@ -587,6 +585,7 @@ X
 
 ```
 
+Decision Tree classifier has been used inorder to implement the **decision tree** algorithm on **X and Y** 
 
 ```python
 my_tree_one = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
@@ -600,6 +599,7 @@ my_tree_one
                 min_weight_fraction_leaf=0.0, presort=False, random_state=None,
                 splitter='best')
 ```
+Importance of the feature has been identfied using **feature_importance**
 
 ```python
 print(my_tree_one.feature_importances_)
@@ -627,19 +627,13 @@ list(zip(columns,my_tree_one.feature_importances_))
      ('Age_Group_Tenager', 0.0),
      ('Age_Group_Youth', 0.0)]
 ```
-
-
+Since Fare and Pclass are both related to each other and the feature importance of **Pclass** is more than **Fare** hence Fare is removed
 
 ```python
-# Since Fare and Pclass are both related to each other and the feature importance of Pclass is more than Fare,
-#hence Fare is removed
+
 columns = ["Pclass","Sex_female","Sex_male","Embarked_C","Embarked_Q","Embarked_S", "SibSp", "Parch","Family_Size","Age_Group_Child","Age_Group_Middle_Aged","Age_Group_Senior_Citizen","Age_Group_Tenager","Age_Group_Youth"]
 features = titanic_train[list(columns)].values
 features
-```
-
-
-
 
     array([[3, 0, 1, ..., 0, 0, 1],
            [1, 1, 0, ..., 0, 0, 0],
@@ -649,16 +643,8 @@ features
            [1, 0, 1, ..., 0, 0, 1],
            [3, 0, 1, ..., 0, 0, 0]], dtype=int64)
 
-
-
-
-```python
 X_nofare = features
 X_nofare
-```
-
-
-
 
     array([[3, 0, 1, ..., 0, 0, 1],
            [1, 1, 0, ..., 0, 0, 0],
@@ -667,18 +653,14 @@ X_nofare
            [3, 1, 0, ..., 0, 0, 1],
            [1, 0, 1, ..., 0, 0, 1],
            [3, 0, 1, ..., 0, 0, 0]], dtype=int64)
+```
 
-
-
+Decision Tree Classifier has been used once again
 
 ```python
 my_tree_one_nofare = tree.DecisionTreeClassifier(criterion="entropy", max_depth=3)
 my_tree_one_nofare = my_tree_one.fit(X_nofare,Y)
 my_tree_one_nofare
-```
-
-
-
 
     DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=3,
                 max_features=None, max_leaf_nodes=None,
@@ -687,23 +669,14 @@ my_tree_one_nofare
                 min_weight_fraction_leaf=0.0, presort=False, random_state=None,
                 splitter='best')
 
-
-
-
-```python
 print(my_tree_one_nofare.feature_importances_)
 print(my_tree_one_nofare.score(X_nofare,Y))
 list(zip(columns,my_tree_one_nofare.feature_importances_))
-```
 
     [0.26338546 0.60250474 0.         0.         0.         0.00523258
      0.         0.         0.0501605  0.07871672 0.         0.
      0.         0.        ]
     0.8148148148148148
-    
-
-
-
 
     [('Pclass', 0.2633854609255124),
      ('Sex_female', 0.6025047440218411),
@@ -719,7 +692,7 @@ list(zip(columns,my_tree_one_nofare.feature_importances_))
      ('Age_Group_Senior_Citizen', 0.0),
      ('Age_Group_Tenager', 0.0),
      ('Age_Group_Youth', 0.0)]
-
+```
 
 
 
